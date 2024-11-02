@@ -1,0 +1,4 @@
+#file da ignorare 
+
+node_modules
+env
