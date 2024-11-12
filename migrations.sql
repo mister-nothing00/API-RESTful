@@ -1,32 +1,32 @@
 -- Creazione del database
-CREATE DATABASE IF NOT EXISTS corsi_db;
-USE corsi_db;
+CREATE DATABASE IF NOT EXISTS courses_db;
+USE courses_db;
 
 -- Tabella delle tipologie di corso
-CREATE TABLE IF NOT EXISTS tipologia_corso (
+CREATE TABLE IF NOT EXISTS course_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_tipologia VARCHAR(100) UNIQUE NOT NULL
+    name VARCHAR(100) UNIQUE NOT NULL
 );
 
 -- Tabella dei corsi
-CREATE TABLE IF NOT EXISTS corso (
+CREATE TABLE IF NOT EXISTS course (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_corso VARCHAR(100) NOT NULL,
-    tipologia_id INT,
-    FOREIGN KEY (tipologia_id) REFERENCES tipologia_corso(id) ON DELETE SET NULL
+    name VARCHAR(100) NOT NULL,
+    type_id INT,
+    FOREIGN KEY (type_id) REFERENCES course_type(id) ON DELETE SET NULL
 );
 
 -- Tabella degli atenei
-CREATE TABLE IF NOT EXISTS ateneo (
+CREATE TABLE IF NOT EXISTS university (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_ateneo VARCHAR(100) UNIQUE NOT NULL
+    name VARCHAR(100) UNIQUE NOT NULL
 );
 
 -- Tabella di relazione tra corsi e atenei (molti-a-molti)
-CREATE TABLE IF NOT EXISTS corso_ateneo (
-    corso_id INT,
-    ateneo_id INT,
-    PRIMARY KEY (corso_id, ateneo_id),
-    FOREIGN KEY (corso_id) REFERENCES corso(id) ON DELETE CASCADE,
-    FOREIGN KEY (ateneo_id) REFERENCES ateneo(id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS course_university (
+    course_id INT,
+    university_id INT,
+    PRIMARY KEY (course_id, university_id),
+    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
+    FOREIGN KEY (university_id) REFERENCES university(id) ON DELETE CASCADE
 );
